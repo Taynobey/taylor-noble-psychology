@@ -275,7 +275,7 @@ function AboutPage() {
         ))}
       </div>
 
-      <Photo src="/taylortherapy.jpeg" alt="Taylor Noble" aspect="aspect-[21/9]" />
+      <Photo src="/Taylor-banner.jpeg" alt="Taylor Noble" aspect="aspect-[21/9]" />
     </div>
   );
 }
