@@ -242,7 +242,7 @@ function AboutPage() {
       <p className="text-sm tracking-[0.2em] uppercase mb-3 font-semibold" style={{ color: "#8B9467" }}>About</p>
       <div className="grid md:grid-cols-[1fr_1.8fr] gap-8 items-start mb-12">
         <div className="space-y-4">
-          <Photo src="/taylor-action.jpeg" alt="Taylor Noble" aspect="aspect-[3/4]" />
+          <Photo src="/tayloraction.jpeg" alt="Taylor Noble" aspect="aspect-[3/4]" />
         </div>
         <div>
           <h1 className="font-serif text-4xl mb-1" style={{ color: "#3A4138" }}>Taylor Noble</h1>
@@ -275,7 +275,7 @@ function AboutPage() {
         ))}
       </div>
 
-      <Photo src="/taylor-therapy.jpeg" alt="Taylor Noble" aspect="aspect-[21/9]" />
+      <Photo src="/taylortherapy.jpeg" alt="Taylor Noble" aspect="aspect-[21/9]" />
     </div>
   );
 }
@@ -298,7 +298,7 @@ function ServicesPage({ setPage }) {
               I work in sport and performance at every level, from community athletes through to high performance environments. My work is strengths-based and person-centred, focused on helping people develop a performance mindset that allows them to achieve consistent quality performance while maintaining their overall wellbeing.
             </p>
           </div>
-          <Photo src="/taylor-sports.jpeg" alt="Sport and Performance" aspect="aspect-[4/3]" />
+          <Photo src="/taylorsports.jpeg" alt="Sport and Performance" aspect="aspect-[4/3]" />
         </div>
         <div className="grid md:grid-cols-3 gap-5">
           {[
@@ -320,7 +320,7 @@ function ServicesPage({ setPage }) {
 
       <div className="mb-16">
         <div className="grid md:grid-cols-2 gap-10 items-center mb-10">
-          <Photo src="/taylor-therapy.jpeg" alt="Therapeutic Support" aspect="aspect-[4/3]" />
+          <Photo src="/taylortherapy.jpeg" alt="Therapeutic Support" aspect="aspect-[4/3]" />
           <div>
             <p className="text-sm tracking-[0.2em] uppercase mb-2 font-bold" style={{ color: "#492A34" }}>02</p>
             <h2 className="font-serif text-2xl mb-3" style={{ color: "#3A4138" }}>Therapeutic Support</h2>
