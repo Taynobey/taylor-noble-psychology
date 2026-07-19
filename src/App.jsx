@@ -1,43 +1,12 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 
 const NAV = ["Home", "About", "Services", "Workshops & Talks", "Contact"];
 
-function usePhoto() {
-  const [src, setSrc] = useState(null);
-  const ref = useRef();
-  const trigger = () => ref.current?.click();
-  const onFile = e => {
-    const f = e.target.files?.[0];
-    if (!f) return;
-    const r = new FileReader();
-    r.onload = ev => setSrc(ev.target.result);
-    r.readAsDataURL(f);
-  };
-  return { src, ref, trigger, onFile };
-}
-
-function PhotoSlot({ photo, aspect = "aspect-[4/5]", rounded = "rounded-2xl", label = "Add photo", size = "md" }) {
-  const iconSize = size === "sm" ? 28 : 40;
+function Photo({ src, alt, aspect = "aspect-[4/5]", rounded = "rounded-2xl", className = "" }) {
   return (
-    <div onClick={photo.trigger} className={`relative ${aspect} ${rounded} overflow-hidden cursor-pointer group`}>
-      {photo.src ? (
-        <img src={photo.src} alt={label} className="w-full h-full object-cover" />
-      ) : (
-        <div className="w-full h-full flex flex-col items-center justify-center gap-2"
-          style={{ background: "linear-gradient(135deg, #F2EDE6, #e0d9d0)", border: "2px dashed #8B946766" }}>
-          <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="#8B9467" strokeWidth="1.5">
-            <rect x="3" y="5" width="18" height="14" rx="2" /><circle cx="8.5" cy="10" r="1.5" /><path d="M21 15l-5-5-4 4-3-3-6 6" />
-          </svg>
-          <span className="text-xs tracking-wide" style={{ color: "#8B9467" }}>{label}</span>
-        </div>
-      )}
-      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
-        <span className="text-white text-xs font-medium bg-black/50 px-3 py-1 rounded-full backdrop-blur-sm">
-          {photo.src ? "Change photo" : "Upload photo"}
-        </span>
-      </div>
-      <input ref={photo.ref} type="file" accept="image/*" className="hidden" onChange={photo.onFile} />
+    <div className={`relative ${aspect} ${rounded} overflow-hidden ${className}`}>
+      <img src={src} alt={alt} className="w-full h-full object-cover" />
     </div>
   );
 }
@@ -158,7 +127,7 @@ function Dot() {
   return <span className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 inline-block" style={{ background: "#492A34" }} />;
 }
 
-function HomePage({ setPage, photos }) {
+function HomePage({ setPage }) {
   return (
     <div>
       <section className="relative overflow-hidden" style={{ background: "linear-gradient(135deg, #F2EDE6 50%, #e0d9d0 100%)" }}>
@@ -184,14 +153,14 @@ function HomePage({ setPage, photos }) {
           </div>
           <div className="hidden md:flex items-center justify-center">
             <div className="w-72 h-72 rounded-full overflow-hidden flex-shrink-0 shadow-2xl" style={{ border: "4px solid #492A3444" }}>
-              <PhotoSlot photo={photos.hero} aspect="aspect-square" rounded="" label="Profile photo" />
+              <img src="/taylor-profile.JPG" alt="Taylor Noble" className="w-full h-full object-cover" />
             </div>
           </div>
         </div>
       </section>
 
       <section className="max-w-5xl mx-auto px-6 py-20 grid md:grid-cols-[1fr_1.6fr] gap-14 items-center">
-        <PhotoSlot photo={photos.aboutHome} aspect="aspect-[3/4]" label="Photo of Taylor" />
+        <Photo src="/taylor-about.jpeg" alt="Taylor Noble" aspect="aspect-[3/4]" />
         <div>
           <p className="text-sm tracking-[0.2em] uppercase mb-3 font-semibold" style={{ color: "#8B9467" }}>Kia ora</p>
           <h2 className="font-serif text-3xl mb-5" style={{ color: "#3A4138" }}>I'm Taylor.</h2>
@@ -218,7 +187,6 @@ function HomePage({ setPage, photos }) {
             ].map(c => (
               <div key={c.title} className="rounded-2xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
                 style={{ background: "#454d43", border: "1px solid #8B946733" }}>
-                <PhotoSlot photo={c.photo} aspect="aspect-[16/9]" rounded="" label={`${c.title} photo`} size="sm" />
                 <div className="p-6">
                   <div className="w-8 h-8 rounded-lg mb-4" style={{ background: c.grad }} />
                   <h3 className="font-serif text-lg mb-2" style={{ color: "#F2EDE6" }}>{c.title}</h3>
@@ -255,9 +223,7 @@ function HomePage({ setPage, photos }) {
             </p>
             <CreamBtn onClick={() => setPage("Workshops & Talks")}>See Workshop Topics</CreamBtn>
           </div>
-          <div className="hidden md:block w-48">
-            <PhotoSlot photo={photos.workshop} aspect="aspect-square" label="Workshop photo" size="sm" />
-          </div>
+          
         </div>
       </section>
 
@@ -270,14 +236,13 @@ function HomePage({ setPage, photos }) {
   );
 }
 
-function AboutPage({ photos }) {
+function AboutPage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-20">
       <p className="text-sm tracking-[0.2em] uppercase mb-3 font-semibold" style={{ color: "#8B9467" }}>About</p>
       <div className="grid md:grid-cols-[1fr_1.8fr] gap-8 items-start mb-12">
         <div className="space-y-4">
-          <PhotoSlot photo={photos.aboutProfile} aspect="aspect-[3/4]" label="Profile photo" />
-          <PhotoSlot photo={photos.aboutAction} aspect="aspect-square" label="Action photo" size="sm" />
+          <Photo src="/taylor-action.jpeg" alt="Taylor Noble" aspect="aspect-[3/4]" />
         </div>
         <div>
           <h1 className="font-serif text-4xl mb-1" style={{ color: "#3A4138" }}>Taylor Noble</h1>
@@ -310,12 +275,12 @@ function AboutPage({ photos }) {
         ))}
       </div>
 
-      <PhotoSlot photo={photos.aboutBanner} aspect="aspect-[21/9]" label="Banner / team photo" size="sm" />
+      <Photo src="/taylor-therapy.jpeg" alt="Taylor Noble" aspect="aspect-[21/9]" />
     </div>
   );
 }
 
-function ServicesPage({ setPage, photos }) {
+function ServicesPage({ setPage }) {
   return (
     <div className="max-w-4xl mx-auto px-6 py-20">
       <p className="text-sm tracking-[0.2em] uppercase mb-3 font-semibold" style={{ color: "#8B9467" }}>Services</p>
@@ -333,7 +298,7 @@ function ServicesPage({ setPage, photos }) {
               I work in sport and performance at every level, from community athletes through to high performance environments. My work is strengths-based and person-centred, focused on helping people develop a performance mindset that allows them to achieve consistent quality performance while maintaining their overall wellbeing.
             </p>
           </div>
-          <PhotoSlot photo={photos.svcSport} aspect="aspect-[4/3]" label="Sport and Performance photo" size="sm" />
+          <Photo src="/taylor-sports.jpeg" alt="Sport and Performance" aspect="aspect-[4/3]" />
         </div>
         <div className="grid md:grid-cols-3 gap-5">
           {[
@@ -355,7 +320,7 @@ function ServicesPage({ setPage, photos }) {
 
       <div className="mb-16">
         <div className="grid md:grid-cols-2 gap-10 items-center mb-10">
-          <PhotoSlot photo={photos.svcTherapy} aspect="aspect-[4/3]" label="Therapeutic Support photo" size="sm" />
+          <Photo src="/taylor-therapy.jpeg" alt="Therapeutic Support" aspect="aspect-[4/3]" />
           <div>
             <p className="text-sm tracking-[0.2em] uppercase mb-2 font-bold" style={{ color: "#492A34" }}>02</p>
             <h2 className="font-serif text-2xl mb-3" style={{ color: "#3A4138" }}>Therapeutic Support</h2>
@@ -391,7 +356,7 @@ function ServicesPage({ setPage, photos }) {
               Book via Educational Assessments Wellington
             </a>
           </div>
-          <PhotoSlot photo={photos.svcEdu} aspect="aspect-[4/3]" label="Educational Assessments photo" size="sm" />
+          <Photo src="/taylor-education-assessments.jpg" alt="Educational Assessments" aspect="aspect-[4/3]" />
         </div>
       </div>
 
@@ -413,7 +378,7 @@ function ServicesPage({ setPage, photos }) {
   );
 }
 
-function WorkshopsPage({ setPage, photos }) {
+function WorkshopsPage({ setPage }) {
   const topics = [
     { title: "Performing Under Pressure", desc: "Practical tools for managing the mental demands of competition, high-stakes environments, and performance moments.", color: "#492A34" },
     { title: "Building Resilience", desc: "Equipping athletes and young people with the mental tools to navigate setbacks, pressure, and adversity.", color: "#3A4138" },
@@ -432,7 +397,7 @@ function WorkshopsPage({ setPage, photos }) {
           <p>Taylor has a unique and authentic way of engaging her audience, presenting complex psychological concepts in a way that is accessible and practical, leaving people with tools they can immediately apply in everyday life.</p>
         </div>
         <div className="hidden md:block w-52">
-          <PhotoSlot photo={photos.wkHero} aspect="aspect-[3/4]" label="Presenting photo" size="sm" />
+          <Photo src="/taylor-about.jpeg" alt="Taylor presenting" aspect="aspect-[3/4]" />
         </div>
       </div>
 
@@ -537,21 +502,13 @@ function ContactPage() {
 
 export default function App() {
   const [page, setPage] = useState("Home");
-  const photos = {
-    hero: usePhoto(), aboutHome: usePhoto(),
-    strand1: usePhoto(), strand2: usePhoto(), strand3: usePhoto(),
-    workshop: usePhoto(),
-    aboutProfile: usePhoto(), aboutAction: usePhoto(), aboutBanner: usePhoto(),
-    svcSport: usePhoto(), svcTherapy: usePhoto(), svcEdu: usePhoto(),
-    wkHero: usePhoto(),
-  };
   return (
     <div className="min-h-screen font-sans" style={{ background: "#FAF8F5" }}>
       <Header page={page} setPage={setPage} />
-      {page === "Home" && <HomePage setPage={setPage} photos={photos} />}
-      {page === "About" && <AboutPage photos={photos} />}
-      {page === "Services" && <ServicesPage setPage={setPage} photos={photos} />}
-      {page === "Workshops & Talks" && <WorkshopsPage setPage={setPage} photos={photos} />}
+      {page === "Home" && <HomePage setPage={setPage} />}
+      {page === "About" && <AboutPage />}
+      {page === "Services" && <ServicesPage setPage={setPage} />}
+      {page === "Workshops & Talks" && <WorkshopsPage setPage={setPage} />}
       {page === "Contact" && <ContactPage />}
       <Footer setPage={setPage} />
     </div>
