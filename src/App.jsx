@@ -451,7 +451,7 @@ function ContactPage() {
               <p className="text-sm" style={{ color: "#3A4138cc" }}>Your message has been sent. Taylor will be in touch soon.</p>
             </div>
           ) : (
-            <div className="space-y-5">
+            <div className="space-y-5" onSubmit={handleSubmit}>
               <div>
                 <label className="block text-sm mb-1.5" style={{ color: "#3A4138" }}>Name</label>
                 <input type="text" name="name" required value={name} onChange={e => setName(e.target.value)}
@@ -473,7 +473,7 @@ function ContactPage() {
                   style={{ border: "1px solid #3A413833", color: "#3A4138" }} />
                 <ValidationError field="message" errors={state.errors} className="text-xs mt-1" style={{ color: "#492A34" }} />
               </div>
-              <button onClick={handleSubmit} disabled={state.submitting}
+              <button type="submit" disabled={state.submitting}
                 className="px-6 py-3 rounded-full text-sm font-semibold hover:scale-105 hover:shadow-lg transition-all duration-200"
                 style={{ background: "linear-gradient(135deg, #492A34, #6b3d4a)", color: "#F2EDE6", opacity: state.submitting ? 0.7 : 1 }}>
                 {state.submitting ? "Sending..." : "Send Message"}
