@@ -1,7 +1,28 @@
 import { useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 
-const NAV = ["Home", "About", "Services", "Workshops & Talks", "Contact"];
+const PAGE_META = {
+  "Home": {
+    title: "Taylor Noble | Registered Psychologist Wellington | Sport & Performance Psychology",
+    description: "Wellington-based Registered Psychologist specialising in Sport & Performance Psychology, Therapeutic Support, and Educational Assessments. Supporting athletes, teams, families, and individuals across New Zealand."
+  },
+  "About": {
+    title: "About Taylor Noble | Registered Psychologist Wellington",
+    description: "Learn about Taylor Noble, a New Zealand-trained Registered Psychologist with expertise in Sport and Performance Psychology, Educational Psychology, and Therapeutic Support."
+  },
+  "Services": {
+    title: "Services | Taylor Noble Psychology Wellington",
+    description: "Sport and Performance Psychology, Therapeutic Support, and Educational Assessments for athletes, teams, families, and individuals in Wellington and across New Zealand."
+  },
+  "Workshops & Talks": {
+    title: "Workshops & Talks | Taylor Noble Psychology Wellington",
+    description: "Engaging seminars, keynotes, and workshops on resilience, performance mindset, mental wellbeing, leadership, and culture for schools, sporting organisations, and workplaces."
+  },
+  "Contact": {
+    title: "Contact Taylor Noble | Registered Psychologist Wellington",
+    description: "Get in touch with Taylor Noble to book individual support, educational assessments, workshop facilitation, or performance psychology for your organisation."
+  }
+};
 
 function Photo({ src, alt, aspect = "aspect-[4/5]", rounded = "rounded-2xl", className = "" }) {
   return (
