@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 
+const NAV = ["Home", "About", "Services", "Workshops & Talks", "Contact"];
+
 const PAGE_META = {
   "Home": {
     title: "Taylor Noble | Registered Psychologist Wellington | Sport & Performance Psychology",
@@ -523,15 +525,21 @@ function ContactPage() {
 
 export default function App() {
   const [page, setPage] = useState("Home");
+
+  const navigateTo = (p) => {
+    setPage(p);
+    updateMeta(p);
+    window.scrollTo(0, 0);
+  };
   return (
     <div className="min-h-screen font-sans" style={{ background: "#FAF8F5" }}>
-      <Header page={page} setPage={setPage} />
-      {page === "Home" && <HomePage setPage={setPage} />}
+      <Header page={page} setPage={navigateTo} />
+      {page === "Home" && <HomePage setPage={navigateTo} />}
       {page === "About" && <AboutPage />}
-      {page === "Services" && <ServicesPage setPage={setPage} />}
-      {page === "Workshops & Talks" && <WorkshopsPage setPage={setPage} />}
+      {page === "Services" && <ServicesPage setPage={navigateTo} />}
+      {page === "Workshops & Talks" && <WorkshopsPage setPage={navigateTo} />}
       {page === "Contact" && <ContactPage />}
-      <Footer setPage={setPage} />
+      <Footer setPage={navigateTo} />
     </div>
   );
 }
