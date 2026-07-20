@@ -1,8 +1,4 @@
-<form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="block text-sm mb-1.5" style={{ color: "#3A4138" }}>Name</label>
-                <input type="text" name="name" required value={name} onChange={e => setName(e.target.value)}
-     import { useState } from "react";
+import { useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 
 const NAV = ["Home", "About", "Services", "Workshops & Talks", "Contact"];
@@ -455,7 +451,7 @@ function ContactPage() {
               <p className="text-sm" style={{ color: "#3A4138cc" }}>Your message has been sent. Taylor will be in touch soon.</p>
             </div>
           ) : (
-            <div className="space-y-5" onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-sm mb-1.5" style={{ color: "#3A4138" }}>Name</label>
                 <input type="text" name="name" required value={name} onChange={e => setName(e.target.value)}
@@ -482,7 +478,7 @@ function ContactPage() {
                 style={{ background: "linear-gradient(135deg, #492A34, #6b3d4a)", color: "#F2EDE6", opacity: state.submitting ? 0.7 : 1 }}>
                 {state.submitting ? "Sending..." : "Send Message"}
               </button>
-            </div>
+            </form>
           )}
         </div>
         <div className="space-y-4">
