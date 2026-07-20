@@ -1,4 +1,8 @@
-import { useState } from "react";
+<form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <label className="block text-sm mb-1.5" style={{ color: "#3A4138" }}>Name</label>
+                <input type="text" name="name" required value={name} onChange={e => setName(e.target.value)}
+     import { useState } from "react";
 import { useForm, ValidationError } from "@formspree/react";
 
 const NAV = ["Home", "About", "Services", "Workshops & Talks", "Contact"];
